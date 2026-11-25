@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Giriş | Tezöde Holding</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="giris-sehife">
+  <form class="giris-kart" id="forma">
+    <h1>Tezöde Holding</h1>
+    <p>Sistemə giriş</p>
+    <label>İstifadəçi adı
+      <input id="ad" type="text" autocomplete="username" required autofocus>
+    </label>
+    <label>Şifrə
+      <input id="sifre" type="password" autocomplete="current-password" required>
+    </label>
+    <p class="giris-xeta" id="xeta" hidden></p>
+    <button type="submit" id="dugme">Daxil ol</button>
+    <p class="demo">Demo hesab (Super admin): istifadəçi adı <b>111</b>, şifrə <b>111</b>. İstifadəçi bazadakı istifadəçilər cədvəlindən yoxlanılır.</p>
+  </form>
+  <script src="config.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>
