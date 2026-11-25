@@ -15,9 +15,8 @@ Tezöde Holding ödəniş terminalları şəbəkəsinin verilənlər bazası (38
 
 ## Sayta baxmaq
 
-Canlı sayt (GitHub Pages): https://vaqifibrahimli.github.io/VBS_independent_work/
+Canlı sayt (GitHub Pages): https://haciyev017.github.io/tezode-holding/
 `main` budağına hər push-dan sonra `.github/workflows/pages.yml` saytı (`sayt/` qovluğunu) avtomatik yeniləyir.
-Əvvəl Netlify-da (`vbsserbestis.netlify.app`) yayımlanırdı, kredit limiti bitdiyi üçün Pages-ə keçildi.
 
 Yerli olaraq `sayt/index.html` faylını brauzerdə açmaq da olar (internet lazımdır). Sayt məlumatı birbaşa Supabase bazasından oxuyur:
 `sayt/config.js` bağlantı ünvanını və yalnız oxumaq üçün açıq (publishable) açarı saxlayır, `sayt/app.js` içindəki `getData()` isə sorğuları göndərir.
