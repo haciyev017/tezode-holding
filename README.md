@@ -1,4 +1,4 @@
-﻿# VBS sərbəst iş: Tezöde Holding
+# VBS sərbəst iş: Tezöde Holding
 
 Fənn: *Verilənlər bazasını idarəetmə alətləri və dilləri*
 
@@ -7,11 +7,11 @@ Tezöde Holding ödəniş terminalları şəbəkəsinin verilənlər bazası (38
 
 ## Qovluqlar
 
-| Qovluq | Nə var |
-|---|---|
-| `sayt/` | Çox sadə sayt (HTML, CSS, JS): Ana səhifə, Terminallar, Əməliyyatlar, İşçilər, Avtomobillər, Hesabatlar |
-| `sql/` | Hər cədvəlin `CREATE TABLE` kodu (`<cədvəl>.txt`), `Primary_Key.txt` (38) və `Foreign_Key.txt` (48) |
-| `teqdimat/` | Sərbəst iş təqdimatı (PowerPoint) |
+| Qovluq        | Nə var                                                                                                            |
+| ------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `sayt/`     | Çox sadə sayt (HTML, CSS, JS): Ana səhifə, Terminallar, Əməliyyatlar, İşçilər, Avtomobillər, Hesabatlar |
+| `sql/`      | Hər cədvəlin `CREATE TABLE` kodu (`<cədvəl>.txt`), `Primary_Key.txt` (38) və `Foreign_Key.txt` (48)  |
+| `teqdimat/` | Sərbəst iş təqdimatı (PowerPoint)                                                                             |
 
 ## Sayta baxmaq
 
@@ -23,6 +23,7 @@ Yerli olaraq `sayt/index.html` faylını brauzerdə açmaq da olar (internet laz
 Bazada anonim istifadəçi yalnız oxuya bilər, yazma və silmə icazəsi yoxdur.
 Giriş səhifəsi bazadakı `istifadeci` cədvəlinə baxır: istifadəçi orada olmalı və rolu icazəli olmalıdır (`Super admin` və ya `Baş admin`).
 İki hesab var:
+
 - **Demo hesab** (`Super admin`): istifadəçi adı `111`, şifrə `111`. "Hesabatlar" və "Bot jurnalı" səhifələri bu hesabdan gizlədilib (`sayt/giris.js`-də `QADAGAN`).
 - **Gizli hesab** (`Baş admin`): bütün səhifələri görür. Şifrəsi kodda yazılmır, yalnız yavaş hash (PBKDF2-SHA256, 300 000 dövr) saxlanılır.
 
@@ -31,5 +32,4 @@ Hesabatlar üçün bazada 3 oxuma funksiyası var: `sayt_aylar()`, `sayt_kateqor
 
 ## Verilənlər bazası
 
-Baza Supabase (PostgreSQL) üzərində qurulub və onlayn əlçatandır. Cədvəllərə yalnız oxumaq üçün baxmaq olar:
-https://tezode-holding.vercel.app/baza
+Baza Supabase (PostgreSQL) üzərində qurulub. Sayt onu yalnız oxuyur.
