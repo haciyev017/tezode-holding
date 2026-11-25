@@ -26,7 +26,12 @@ async function pbkdf2Hex(sifre, saltHex, iter) {
   return baytHex(bitler);
 }
 
-async function sifreDuzgundur(ad, sifre) {
+// bazaHash: tətbiqdən yaradılan istifadəçilər üçün "dövr$duz$hash"
+async function sifreDuzgundur(ad, sifre, bazaHash) {
+  if (bazaHash) {
+    const [iter, salt, hash] = bazaHash.split("$");
+    return (await pbkdf2Hex(sifre, salt, Number(iter))) === hash;
+  }
   if (Object.prototype.hasOwnProperty.call(DEMO_SIFRELER, ad)) return sifre === DEMO_SIFRELER[ad];
   if (Object.prototype.hasOwnProperty.call(GIZLI_HESABLAR, ad)) {
     const g = GIZLI_HESABLAR[ad];
@@ -39,15 +44,15 @@ async function girisYoxla(ad, sifre) {
   const basliqlar = { apikey: SUPABASE_KEY, Authorization: "Bearer " + SUPABASE_KEY };
   let cavab;
   try {
-    cavab = await fetch(SUPABASE_URL + "/rest/v1/istifadeci?select=login,rol(ad)&login=eq." + encodeURIComponent(ad), { headers: basliqlar });
+    cavab = await fetch(SUPABASE_URL + "/rest/v1/istifadeci?select=login,sayt_hash,sayt_sehifeler,rol(ad)&login=eq." + encodeURIComponent(ad), { headers: basliqlar });
   } catch (e) {
     return { ok: false, xeta: "Bazaya qoşulmaq olmadı. İnternet bağlantısını yoxlayın." };
   }
   if (!cavab.ok) return { ok: false, xeta: "Baza cavab vermədi (" + cavab.status + ")." };
   const sira = await cavab.json();
   const rol = sira.length === 1 && sira[0].rol ? sira[0].rol.ad : null;
-  if (rol && ICAZELI_ROLLAR.includes(rol) && (await sifreDuzgundur(ad, sifre))) {
-    return { ok: true, login: sira[0].login, rol };
+  if (rol && ICAZELI_ROLLAR.includes(rol) && (await sifreDuzgundur(ad, sifre, sira[0].sayt_hash))) {
+    return { ok: true, login: sira[0].login, rol, sehifeler: sira[0].sayt_sehifeler };
   }
   return { ok: false, xeta: "İstifadəçi adı və ya şifrə yanlışdır." };
 }
@@ -64,6 +69,8 @@ if (typeof document !== "undefined" && document.getElementById("forma")) {
     if (n.ok) {
       sessionStorage.setItem("giris", n.login);
       sessionStorage.setItem("rol", n.rol);
+      if (n.sehifeler) sessionStorage.setItem("sehifeler", JSON.stringify(n.sehifeler));
+      else sessionStorage.removeItem("sehifeler");
       location.href = "index.html";
     } else {
       xeta.textContent = n.xeta;

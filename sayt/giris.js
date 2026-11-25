@@ -18,6 +18,11 @@ function sehifeAdi(yol) {
     return;
   }
   const rol = sessionStorage.getItem("rol");
+  // Tətbiqdən yaradılan istifadəçi: yalnız onun üçün seçilən səhifələr açıqdır
+  const icaze = JSON.parse(sessionStorage.getItem("sehifeler") || "null");
+  if (icaze) {
+    QADAGAN[rol] = ["terminallar", "emeliyyatlar", "isciler", "avtomobiller", "hesabatlar", "bot"].filter((s) => !icaze.includes(s));
+  }
   if ((QADAGAN[rol] || []).includes(sehifeAdi(location.pathname))) {
     location.replace("index.html");
     return;
